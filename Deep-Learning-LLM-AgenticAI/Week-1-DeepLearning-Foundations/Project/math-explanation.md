@@ -1,60 +1,26 @@
-# Mathematical Explanation — Week 1 Project
+# Mathematical Explanation
 
-## Notation
-- \(B\): batch size
-- \(T\): sequence length
-- \(V\): vocabulary size
-- \(d\): embedding dimension
-- \(h\): GRU hidden dimension
-- \(C\): number of intent classes
-
-## Forward pass
-1. **Token embedding**
+For utterance tokens \(t_{1:T}\):
 \[
-X_b = [E_{t_1},\dots,E_{t_T}]\in\mathbb R^{T\times d}
+X = [E_{t_1}, \ldots, E_{t_T}]
 \]
-2. **BiGRU encoding**
+BiGRU hidden states:
 \[
-H_b = \text{BiGRU}(X_b)\in\mathbb R^{T\times 2h}
+H = \text{BiGRU}(X)
 \]
-3. **Masked mean pooling**
+Masked pooling:
 \[
-s_b = \frac{\sum_{i=1}^{T} m_{b,i} h_{b,i}}{\sum_{i=1}^{T}m_{b,i}}\in\mathbb R^{2h}
+s = \frac{\sum_{i=1}^{T} m_i h_i}{\sum_{i=1}^{T} m_i}
 \]
-4. **Classifier logits**
+Classifier:
 \[
-z_b = W s_b + b\in\mathbb R^{C}
+z = Ws+b,\quad p=\text{softmax}(z)
 \]
-5. **Probabilities**
+Loss for class \(y\):
 \[
-p_b = \text{softmax}(z_b)
+\mathcal{L}=-\log p_y
 \]
-
-## Loss
+Gradient descent update:
 \[
-\mathcal J = -\frac1B\sum_{b=1}^{B}\log p_{b,y_b}
+\theta \leftarrow \theta - \eta \nabla_\theta \mathcal{L}
 \]
-
-## Backprop key equations
-For sample \(b\):
-\[
-\frac{\partial\mathcal L_b}{\partial z_b}=p_b-y_b^{(onehot)}
-\]
-\[
-\frac{\partial\mathcal J}{\partial W}=\frac1B\sum_b (p_b-y_b)s_b^\top
-\]
-\[
-\frac{\partial\mathcal J}{\partial s_b}=W^\top(p_b-y_b)
-\]
-Pooled representation gradient distributes back through mask-normalized average to each time step, then through GRU recurrence and embedding rows.
-
-## Optimization
-Use AdamW update per parameter tensor \(\theta\):
-\[
-\theta_{t+1}=\theta_t-\eta\frac{\hat m_t}{\sqrt{\hat v_t}+\epsilon}
-\]
-with decoupled weight decay.
-
-## Practical interpretation
-- If class probability for true label is low, gradient magnitude is high.
-- Rare intents often need macro-F1 tracking to avoid collapse into frequent classes.

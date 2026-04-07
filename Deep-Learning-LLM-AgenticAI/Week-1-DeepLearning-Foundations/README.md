@@ -1,33 +1,25 @@
-# Week 1 — Deep Learning Foundations for NLP, LLM Pretraining, and Agentic AI
+# Week 1 — Deep Learning Foundations (NLP/LLM Track)
 
-## Week Goal
-This week transforms learners from “I can run a notebook” to “I understand why the model learns.” We focus on foundational deep learning mechanisms that later become Transformer internals, LLM pretraining objectives, and agentic model control loops.
+## Weekly Objective
+Build mathematical and implementation fluency in neural networks for text so you can transition smoothly into Transformer and LLM internals in Week 2.
 
-## Day-by-Day Learning Path (Days 1–7)
-1. **Day 1 — Tensor and gradient fluency**: vectorization, broadcasting, automatic differentiation, and numerical stability.
-2. **Day 2 — Learning as optimization**: loss landscapes, gradient descent variants, initialization, and regularization.
-3. **Day 3 — Text representation**: tokenization, vocabulary construction, embeddings, sequence padding/masking.
-4. **Day 4 — Supervised NLP baselines**: embedding averaging and MLP/linear heads for robust baselines.
-5. **Day 5 — Sequence modeling**: RNN/GRU language-modeling and sequence classification fundamentals.
-6. **Day 6 — Evaluation and error analysis**: metrics, confusion analysis, calibration, and failure-pattern audits.
-7. **Day 7 — Integrated weekly project**: production-style intent classifier with reproducibility and checkpointing.
+## Day-wise Plan (Days 1–7)
+1. **Day 1:** Tensors, linear layers, activations, gradient intuition.
+2. **Day 2:** Losses for NLP (cross-entropy, NLL), optimization (SGD/Adam).
+3. **Day 3:** Tokenization and vocabulary engineering with HuggingFace Datasets.
+4. **Day 4:** Embeddings, pooling, and sentence classification baselines.
+5. **Day 5:** Sequence modeling basics (RNN/GRU/LSTM) for language modeling.
+6. **Day 6:** Regularization, overfitting diagnostics, experiment tracking.
+7. **Day 7:** Weekly project end-to-end: text intent classifier with reproducible training.
 
-## Folder Expectations
-- **Theory/**: each core concept is explained for beginners and technical interviews.
-- **Maths/**: full derivations from scalar equations to matrix calculus and backprop.
-- **Practical-Code/**: 10 worked examples with real datasets and explicit math-to-code mapping.
-- **Assignments/**: increasing-difficulty conceptual, derivation, and coding tasks.
-- **Project/**: full project package with architecture text-diagram, formulas, and implementation.
+## Folder Guide
+- `Theory/`: concept-first lecture notes with layman + technical views.
+- `Maths/`: derivations, chain rule walkthroughs, matrix calculus, numerical examples.
+- `Practical-Code/`: 10 runnable PyTorch scripts using real datasets.
+- `Assignments/`: conceptual, math, coding, and mini-project tasks.
+- `Project/`: complete weekly project with architecture and implementation.
 
-## Tools and Libraries
-- `torch`, `torch.nn`, `torch.optim`
-- HuggingFace `datasets` and `transformers` tokenizers
-- `evaluate` for metrics
-
-## Deliverables after Week 1
-By the end of this week, learners can:
-- derive cross-entropy gradients without skipping steps,
-- implement robust data pipelines for real text datasets,
-- train and evaluate baseline NLP models in PyTorch,
-- explain implementation choices in interview-ready language,
-- connect foundational math to LLM training dynamics.
+## Core Tools Used in Week 1
+- PyTorch
+- HuggingFace `datasets` + `transformers` tokenizers
+- `evaluate` library for metrics

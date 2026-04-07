@@ -1,46 +1,41 @@
-# Week 1 Assignments (Increasing Difficulty)
+# Week 1 Assignments
 
-## Section A — Conceptual Questions (5)
-1. Explain why embedding spaces enable semantic generalization while one-hot vectors do not.
-2. Differentiate empirical risk minimization and true risk; why does generalization gap matter in NLP?
-3. Why does gradient clipping help recurrent and long-context models?
-4. Compare accuracy, macro-F1, and perplexity: when is each the right metric?
-5. In production NLP, why is calibration and confidence analysis as important as raw accuracy?
+## A) Conceptual Questions (5)
+1. Why are embeddings superior to one-hot vectors for semantic generalization?
+2. Explain underfitting vs overfitting in the context of NLP classification.
+3. Why does cross-entropy pair naturally with softmax for multiclass tasks?
+4. Compare SGD and Adam in terms of convergence behavior and memory.
+5. Why is perplexity preferred over raw loss for language modeling interpretation?
 
-## Section B — Mathematical Derivations (5)
-1. Derive \(\partial\mathcal L/\partial z\) for softmax+cross-entropy from first principles.
-2. Derive gradients for binary logistic regression with BCE: \(\nabla_w\mathcal J\) and \(\partial\mathcal J/\partial b\).
-3. For mean-pooled embeddings + linear classifier, derive gradients with respect to embedding rows and classifier weights.
-4. Expand chain rule through two-layer MLP with ReLU and CE loss; produce final \(\nabla_{W_1}\) expression.
-5. Starting from autoregressive likelihood, derive perplexity and explain its relation to geometric mean probability.
+## B) Mathematical Problems (5)
+1. Derive \(\partial \mathcal{L}/\partial z\) for softmax + cross-entropy.
+2. For \(y=\sigma(wx+b)\) with BCE loss, derive gradients wrt \(w,b\).
+3. Given a 2-layer MLP with ReLU, derive \(\partial \mathcal{L}/\partial W_1\).
+4. Show how L2 regularization modifies gradient update rules.
+5. Compute perplexity from token log-likelihoods \([-1.2,-0.8,-1.5,-0.5]\).
 
-## Section C — Coding Exercises (5)
-1. Implement AG News classification with embedding mean pooling and report validation accuracy + macro-F1.
-2. Replace pooling classifier with BiGRU encoder; compare parameter count and convergence speed.
-3. Add mixed precision (`torch.cuda.amp`) and benchmark throughput vs baseline.
-4. Implement error analysis script grouping failures by text-length buckets.
-5. Build reproducibility pipeline: fixed seeds, config file, checkpoint resume, and JSON metrics logging.
+## C) Coding Assignments (5)
+1. Train an AG News classifier using averaged token embeddings + linear head.
+2. Reproduce the same task with a GRU and compare validation accuracy.
+3. Build a reusable training loop with gradient clipping + early stopping.
+4. Implement error analysis that prints the top-20 misclassified samples.
+5. Implement an experiment logger saving config, metrics, and model checkpoint.
 
-## Section D — Mini Project (1)
+## D) Mini Project (1)
 ### Title
-**Intent Router v1 for Customer Support**
+**Customer Support Intent Router**
 
-### Difficulty
-Advanced beginner → intermediate.
+### Objective
+Build a 5-class intent classifier trained on the CLINC OOS dataset (subset allowed).
 
-### Problem statement
-Build a multiclass intent classifier that routes user utterances to support teams.
+### Requirements
+- PyTorch implementation with train/validation/test split
+- HuggingFace tokenizer + dataset pipeline
+- Metrics: accuracy, macro-F1, confusion matrix
+- Ablation: embedding-only vs GRU model
+- Report: architecture, math, training curves, and failure cases
 
-### Dataset
-Use `clinc_oos` (HuggingFace). Train on in-domain intents and evaluate robustness on out-of-scope examples.
-
-### Required deliverables
-- `train.py`: training with train/val split, early stopping, checkpointing
-- `evaluate.py`: accuracy, macro-F1, confusion matrix
-- `infer.py`: single and batch inference API
-- `report.md`: equations, architecture choices, error categories, improvement ideas
-
-### Stretch goals
-- Distillation from a Transformer teacher
-- Threshold-based OOS rejection
-- Embedding visualization for intent clusters
+### Deliverables
+- `train.py`, `evaluate.py`, `inference.py`
+- `report.md` with equations and results
+- `requirements.txt`

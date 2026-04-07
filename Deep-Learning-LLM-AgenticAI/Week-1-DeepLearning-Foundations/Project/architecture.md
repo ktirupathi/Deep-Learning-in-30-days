@@ -1,39 +1,8 @@
-# Architecture — Week 1 Intent Router
+# Architecture
 
-## High-level block view
-```
-[Raw utterance text]
-        |
-        v
-[Tokenizer + truncation/padding]
-        |
-        v
-[input_ids, attention_mask]
-        |
-        v
-[Embedding matrix E in R^(V x d)]
-        |
-        v
-[BiGRU contextual encoder]
-        |
-        v
-[Masked mean pooling]
-        |
-        v
-[Linear classifier]
-        |
-        v
-[Softmax distribution over intents]
-```
-
-## Tensor dimensions
-- `input_ids`: [B, T]
-- `embeddings`: [B, T, d]
-- `biGRU outputs`: [B, T, 2h]
-- `pooled sentence`: [B, 2h]
-- `logits`: [B, C]
-
-## Why this architecture for Week 1
-- Simple enough to derive gradients clearly.
-- Stronger than bag-of-words baselines due to sequence context from BiGRU.
-- Serves as conceptual bridge to Transformer encoders in Week 2.
+1. Text input \(x\) is tokenized into ids \(t_{1:T}\).
+2. Embedding lookup produces \(E\in\mathbb{R}^{T\times d}\).
+3. BiGRU encodes sequence contextual states \(H\in\mathbb{R}^{T\times 2h}\).
+4. Masked mean pooling gives sentence vector \(s\in\mathbb{R}^{2h}\).
+5. Linear head outputs logits \(z\in\mathbb{R}^{C}\).
+6. Softmax + cross-entropy computes training objective.
